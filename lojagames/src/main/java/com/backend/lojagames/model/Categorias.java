@@ -4,9 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_categorias")
@@ -28,6 +31,10 @@ public class Categorias {
 	@NotBlank(message = "O nome é obrigatório")
 	@Size(min = 2, max = 50, message = "O nome deve ter de 2 à 50 caracteres")
 	private String nintendo;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("categorias")
+	private Produtos produtos;
 
 	public Long getId() {
 		return id;
@@ -59,5 +66,13 @@ public class Categorias {
 
 	public void setNintendo(String nintendo) {
 		this.nintendo = nintendo;
+	}
+
+	public Produtos getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Produtos produtos) {
+		this.produtos = produtos;
 	}
 }
