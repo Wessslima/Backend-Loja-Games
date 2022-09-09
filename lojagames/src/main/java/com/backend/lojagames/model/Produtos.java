@@ -24,13 +24,7 @@ public class Produtos {
 	@NotNull(message = "O Tema é obrigatório")
 	private String desenho;
 	
-	@NotNull(message = "O Tema é obrigatório")
-	private String gerra;
-	
-	@NotNull(message = "O Tema é obrigatório")
-	private String fantasia;
-	
-	@OneToMany(mappedBy = "produtos", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("produtos")
 	private List<Categorias> categorias;
 
@@ -48,22 +42,6 @@ public class Produtos {
 
 	public void setDesenho(String desenho) {
 		this.desenho = desenho;
-	}
-
-	public String getGerra() {
-		return gerra;
-	}
-
-	public void setGerra(String gerra) {
-		this.gerra = gerra;
-	}
-
-	public String getFantasia() {
-		return fantasia;
-	}
-
-	public void setFantasia(String fantasia) {
-		this.fantasia = fantasia;
 	}
 
 	public List<Categorias> getCategorias() {

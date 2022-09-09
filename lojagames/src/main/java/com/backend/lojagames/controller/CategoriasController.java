@@ -22,7 +22,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.backend.lojagames.model.Categorias;
 import com.backend.lojagames.repository.CategoriasRepository;
-import com.backend.lojagames.repository.ProdutosRepository;
 
 @RestController
 @RequestMapping("/categorias")
@@ -31,9 +30,6 @@ public class CategoriasController {
 	
 	@Autowired
 	private CategoriasRepository categoriasRepository;
-	
-	@Autowired
-	private ProdutosRepository produtosRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Categorias>> getAll(){
@@ -54,25 +50,17 @@ public class CategoriasController {
 	
 	@PostMapping
 	public ResponseEntity<Categorias> post(@Valid @RequestBody Categorias categorias){
-		if(produtosRepository.existsById(categorias.getProdutos()))
-		return ResponseEntity.status(HttpStatus.CREATED)
+		     return ResponseEntity.status(HttpStatus.CREATED)
 				.body(categoriasRepository.save(categorias));
-		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
 	@PutMapping
 	public ResponseEntity<Categorias> put(@Valid @RequestBody Categorias categorias) {
-		if(categoriasRepository.existsById(categorias.getId())) {
-			
-			if(produtosRepository.existsById(categorias.getProdutos().getId()))
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(categoriasRepository.save(categorias));
-			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		return categoriasRepository.findById(categorias.getId())
+				.map(resposta -> ResponseEntity.status(HttpStatus.OK)
+						.body(categoriasRepository.save(categorias)))
+		.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());			
 		}
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
