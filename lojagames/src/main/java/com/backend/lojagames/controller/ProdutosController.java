@@ -43,10 +43,10 @@ public class ProdutosController {
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
      }
   
-    @GetMapping("/desenho/{desenho}")
-    public ResponseEntity<List<Produtos>> getByTitle(@PathVariable String desenho){
+    @GetMapping("/tematica/{tematica}")
+    public ResponseEntity<List<Produtos>> getByTitle(@PathVariable String tematica){
         return ResponseEntity.ok(produtosRepository
-            .findAllByDesenhoContainingIgnoreCase(desenho));
+            .findAllByTematicaContainingIgnoreCase(tematica));
     }
     
     @PostMapping

@@ -22,7 +22,7 @@ public class Produtos {
 	private Long id;
 	
 	@NotNull(message = "O Tema é obrigatório")
-	private String desenho;
+	private String tematica;
 	
 	@OneToMany(mappedBy = "produtos", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("produtos")
@@ -36,12 +36,12 @@ public class Produtos {
 		this.id = id;
 	}
 
-	public String getDesenho() {
-		return desenho;
+	public String getTematica() {
+		return tematica;
 	}
 
-	public void setDesenho(String desenho) {
-		this.desenho = desenho;
+	public void setTematica(String tematica) {
+		this.tematica = tematica;
 	}
 
 	public List<Categorias> getCategorias() {
